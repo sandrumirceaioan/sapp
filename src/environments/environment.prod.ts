@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiPath: "https://secret-dashboard-api.herokuapp.com/api"
 };
