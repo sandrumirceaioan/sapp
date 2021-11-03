@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute
   ) { 
     this.loginForm = new FormGroup({
-      viewingKey: new FormControl(null, [Validators.required])
+      wallet: new FormControl(null, [Validators.required]),
+      key: new FormControl(null, [Validators.required])
     });
   }
 
