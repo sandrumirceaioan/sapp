@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +13,12 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) { 
     this.loginForm = new FormGroup({
-      wallet: new FormControl(null, [Validators.required]),
-      key: new FormControl(null, [Validators.required])
+      username: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required])
     });
   }
 
@@ -24,10 +26,12 @@ export class LoginComponent implements OnInit {
 
   }
 
-  login() {
+  signIn() {
     if (this.loginForm.invalid) {
       return;
     }
+
+    this.authService.signIn(this.loginForm.value);
   }
 
 

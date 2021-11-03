@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-// import { AuthGuard } from './shared/guards/auth.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -11,9 +11,9 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
   {
-    path: 'admin',
+    path: 'secret',
     loadChildren: () => import('./secret/secret.module').then(m => m.SecretModule),
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
 
 ];
