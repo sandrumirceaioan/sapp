@@ -11,22 +11,22 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
+export class RewardsService {
   apiPath: string = environment.apiPath;
-  dashboardSubject$ = new Subject();
-  loadingDashboard$ = new Subject();
+  rewardsSubject$ = new Subject();
+  loadingRewards$ = new Subject();
 
   constructor(
     private http: HttpClient,
   ) { }
 
-  getLatest() {
-    console.log('dashboard');
-    this.loadingDashboard$.next(true);
-    this.http.get(`${this.apiPath}/statistics/latest`).pipe(
+  getRewardsStatus() {
+    console.log('status');
+    this.loadingRewards$.next(true);
+    this.http.get(`${this.apiPath}/rewards/status`).pipe(
       map((result: any) => {
-        this.dashboardSubject$.next(result);
-        this.loadingDashboard$.next(false);
+        this.rewardsSubject$.next(result);
+        this.loadingRewards$.next(false);
       }),
       catchError((error) => {
         console.log(error);

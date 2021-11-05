@@ -11,7 +11,7 @@ import { StatisticsService } from './statistics.service';
 export class StatisticsComponent implements OnInit {
 
   view: any;
-  data$: Observable<any> = of(localStorage.getItem('lastPrices'));
+  data$: Observable<any>;
   
   // options
   legend: boolean = true;
@@ -30,15 +30,18 @@ export class StatisticsComponent implements OnInit {
   autoScale: boolean = true;
 
   colorScheme: any = {
-    domain: ['#ffffff', '#33b99e', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+    domain: ['#000000', '#33b99e', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
 
   constructor(
     private statisticsService: StatisticsService
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit(): void {
-    this.data$ = this.statisticsService.getPricesContinously();
+    this.statisticsService.getLastDayPrices();
+    this.data$ = this.statisticsService.statisticsSubject$;
   }
 
   onSelect(data: any): void {

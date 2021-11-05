@@ -1,29 +1,34 @@
 <ion-content>
     <ion-grid>
         <ion-row>
-            <ion-col size="6" offset="3" class="ion-text-center ion-padding-vertical">
-                <img class="logo" src="assets/images/secret-logo-black.png" />
+            <ion-col size="6" offset="3" class="ion-text-center">
+                <img class="logo" src="assets/images/secret-logo-black-white.png" />
             </ion-col>
         </ion-row>
+        <!-- <ion-row>
+            <ion-col class="ion-text-center">
+                <h5><ion-text color="light"><i class="hq">you cross me, and there will be consequences...</i></ion-text></h5>
+            </ion-col>
+        </ion-row> -->
         <ion-row>
-            <ion-col size-xs="8" offset-xs="2" size-md="6" offset-md="3" size-lg="4" offset-lg="4" size-xl="2"
-                offset-xl="5" class="ion-padding">
+            <ion-col size-xs="6" offset-xs="3" size-md="6" offset-md="3" size-lg="4" offset-lg="4" size-xl="2"
+                offset-xl="5" class="ion-padding-start ion-padding-end ion-no-padding-bottom">
                 <form [formGroup]="loginForm" (keydown.enter)="signIn()">
-                    <ion-item color="dark" class="ion-margin-bottom">
-                        <ion-label position="floating" color="light">
+                    <ion-item color="light" class="ion-margin-bottom">
+                        <ion-label position="floating" color="dark">
                             <ion-icon name="person-outline"></ion-icon>
                             <span class="ion-padding-start">username</span>
                         </ion-label>
                         <ion-input formControlName="username" type="text" autocomplete="off"></ion-input>
                     </ion-item>
-                    <ion-item color="dark" class="ion-margin-bottom">
-                        <ion-label position="floating" color="light">
+                    <ion-item color="light" class="ion-margin-bottom">
+                        <ion-label position="floating" color="dark">
                             <ion-icon name="key-outline"></ion-icon>
                             <span class="ion-padding-start">password</span>
                         </ion-label>
                         <ion-input formControlName="password" type="password" autocomplete="new-password"></ion-input>
                     </ion-item>
-                    <ion-button class="login-bth" expand="block" color="dark" [disabled]="!loginForm.valid"
+                    <ion-button class="login-btn" expand="block" color="dark" [disabled]="!loginForm.valid" 
                         (click)="signIn()">Sign In
                     </ion-button>
                 </form>

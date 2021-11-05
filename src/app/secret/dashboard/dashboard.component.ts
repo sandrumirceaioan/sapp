@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.dashboardSubject$.subscribe(result => {
       this.dashboard = result;
     });
-    this.loading$ = this.dashboardService.loadingSubject$;
+    this.loading$ = this.dashboardService.loadingDashboard$;
   }
 
 }
