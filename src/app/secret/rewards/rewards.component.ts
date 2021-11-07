@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, of, Subscription } from 'rxjs';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { RewardsService } from './rewards.service';
 
 @Component({
@@ -7,12 +8,16 @@ import { RewardsService } from './rewards.service';
   templateUrl: './rewards.component.html',
   styleUrls: ['./rewards.component.scss']
 })
-export class RewardsComponent implements OnInit, AfterViewInit {
+export class RewardsComponent implements OnInit, AfterViewInit, OnDestroy {
   rewards: any = null;
   loading$: Observable<any>;
+  claimConfirm: boolean = false;
+  claimInProgress: boolean = false;
+  rewardsClaimSubscription: Subscription = new Subscription();
 
   constructor(
-    private rewardsService: RewardsService
+    private rewardsService: RewardsService,
+    private toastService: ToastService
   ) { 
     this.loading$ = this.rewardsService.loadingRewards$;
   }
@@ -28,8 +33,33 @@ export class RewardsComponent implements OnInit, AfterViewInit {
 
   }
 
-  run() {
-    this.rewardsService.getRewardsStatus();
+  getColor() {
+    return this.claimConfirm ? 'success': null;
+  }
+
+  claim() {
+    this.claimInProgress = true;
+    this.rewardsClaimSubscription = this.rewardsService.claimRewards(this.rewards).subscribe(
+      (result) => {
+        console.log(result);
+        this.toastService.presentToast({ type: 'success', message: 'Rewards claimed' });
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.presentToast({ type: 'danger', message: 'Rewards claim error'});
+      },
+      () => {
+        this.claimConfirm = false;
+        this.claimInProgress = false;
+        this.rewardsService.getRewardsStatus();
+      }
+    );
+    console.log('claim');
+  }
+
+
+  ngOnDestroy() {
+    this.rewardsClaimSubscription.unsubscribe();
   }
 
 }

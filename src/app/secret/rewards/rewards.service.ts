@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { throwError, Observable, Subject } from 'rxjs';
-import { map, catchError} from 'rxjs/operators';
+import { map, catchError, delay} from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 const httpOptions = {
@@ -33,6 +33,19 @@ export class RewardsService {
         return throwError(error.error);
       })
     ).subscribe();
+  }
+
+  claimRewards(params: any): Observable<any> {
+    return this.http.post(`${this.apiPath}/rewards/claim`, params).pipe(
+      delay(5000),
+      map((result: any) => {
+        return result;
+      }),
+      catchError((error) => {
+        console.log(error);
+        return throwError(error.error);
+      })
+    );
   }
 
 }
