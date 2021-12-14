@@ -10,10 +10,9 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   dashboard: any;
-  loading$: Observable<any> = of(false);
 
   constructor(
-    private dashboardService: DashboardService
+    public dashboardService: DashboardService
   ) { }
 
   ngOnInit(): void {
@@ -21,7 +20,6 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.dashboardSubject$.subscribe(result => {
       this.dashboard = result;
     });
-    this.loading$ = this.dashboardService.loadingDashboard$;
   }
 
 }

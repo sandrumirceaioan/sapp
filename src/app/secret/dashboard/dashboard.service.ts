@@ -14,7 +14,7 @@ const httpOptions = {
 export class DashboardService {
   apiPath: string = environment.apiPath;
   dashboardSubject$ = new Subject();
-  loadingDashboard$ = new Subject();
+  public loading: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -22,14 +22,15 @@ export class DashboardService {
 
   getLatest() {
     console.log('dashboard');
-    this.loadingDashboard$.next(true);
+    this.loading = true;
     this.http.get(`${this.apiPath}/statistics/latest`).pipe(
       map((result: any) => {
         this.dashboardSubject$.next(result);
-        this.loadingDashboard$.next(false);
+        this.loading = false;
       }),
       catchError((error) => {
         console.log(error);
+        this.loading = false;
         return throwError(error.error);
       })
     ).subscribe();

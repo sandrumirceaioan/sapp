@@ -16,10 +16,10 @@ export class RewardsComponent implements OnInit, AfterViewInit, OnDestroy {
   rewardsClaimSubscription: Subscription = new Subscription();
 
   constructor(
-    private rewardsService: RewardsService,
+    public rewardsService: RewardsService,
     private toastService: ToastService
   ) { 
-    this.loading$ = this.rewardsService.loadingRewards$;
+
   }
 
   ngOnInit(): void {

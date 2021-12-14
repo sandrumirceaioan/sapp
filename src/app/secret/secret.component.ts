@@ -69,6 +69,10 @@ export class SecretComponent implements OnInit {
 
   refresh() {
     switch (this.refreshPage) {
+      case 'secret':
+        this.dashboardService.getLatest();
+        break;
+
       case 'dashboard':
         this.dashboardService.getLatest();
         break;

@@ -14,7 +14,7 @@ const httpOptions = {
 export class RewardsService {
   apiPath: string = environment.apiPath;
   rewardsSubject$ = new Subject();
-  loadingRewards$ = new Subject();
+  loading: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -22,11 +22,11 @@ export class RewardsService {
 
   getRewardsStatus() {
     console.log('status');
-    this.loadingRewards$.next(true);
+    this.loading = true;
     this.http.get(`${this.apiPath}/rewards/status`).pipe(
       map((result: any) => {
         this.rewardsSubject$.next(result);
-        this.loadingRewards$.next(false);
+        this.loading = false;
       }),
       catchError((error) => {
         console.log(error);
